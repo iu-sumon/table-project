@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="table.css" />
+  </head>
+  <body>
+    <!-- <div>
+      <p>
+        1--please give a hmtl table with data and css where the column name will
+        be code, initial limit, investment, Mkt value, Gain and % gain
+      </p>
+      <p>2--please create a dropdown with checkbox and column name</p>
+      <p>
+        3--by default, all checkboxes will have unchecked. when any checkbox has
+        been checked this column and his column all data (like ABC, DEF, GHI)
+        will be saved in local storage. how can i do this?
+      </p>
+      <p>
+        4---by default, all checkboxes will have unchecked. when any checkbox
+        has been checked this column and his column the above data will be saved
+        in local storage. how can I do this? plsease suggest only js
+      </p>
+    </div> -->
+    <div class="dropdown">
+      <span>Columns:</span>
+      <div class="dropdown-content">
+        <a
+          ><input
+            type="checkbox"
+            class="column-checkbox"
+            value="Code"
+            checked
+          />Code</a
+        >
+        <a
+          ><input
+            type="checkbox"
+            class="column-checkbox"
+            value="Initial Limit"
+            checked
+          />Initial Limit</a
+        >
+        <a
+          ><input
+            type="checkbox"
+            class="column-checkbox"
+            value="Investment"
+            checked
+          />Investment</a
+        >
+        <a
+          ><input
+            type="checkbox"
+            class="column-checkbox"
+            value="Mkt Value"
+            checked
+          />Mkt Value</a
+        >
+        <a
+          ><input
+            type="checkbox"
+            class="column-checkbox"
+            value="Gain"
+            checked
+          />Gain</a
+        >
+        <a
+          ><input
+            type="checkbox"
+            class="column-checkbox"
+            value="% Gain"
+            checked
+          />% Gain</a
+        >
+      </div>
+    </div>
+    <table id="my-table">
+      <thead>
+        <tr>
+          <th data-column="code">Code</th>
+          <th data-column="initial_limit">Initial Limit</th>
+          <th data-column="investment">Investment</th>
+          <th data-column="mkt_value">Mkt Value</th>
+          <th data-column="gain">Gain</th>
+          <th data-column="pct_gain">% Gain</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-column="code">ABC</td>
+          <td data-column="initial_limit">1000</td>
+          <td data-column="investment">500</td>
+          <td data-column="mkt_value">750</td>
+          <td data-column="gain">250</td>
+          <td data-column="pct_gain">50%</td>
+        </tr>
+        <tr>
+          <td data-column="code">XYZ</td>
+          <td data-column="initial_limit">2000</td>
+          <td data-column="investment">1000</td>
+          <td data-column="mkt_value">1500</td>
+          <td data-column="gain">500</td>
+          <td data-column="pct_gain">50%</td>
+        </tr>
+        <tr>
+          <td data-column="code">BCD</td>
+          <td data-column="initial_limit">3000</td>
+          <td data-column="investment">4000</td>
+          <td data-column="mkt_value">2500</td>
+          <td data-column="gain">700</td>
+          <td data-column="pct_gain">50%</td>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+      // Get the checkboxes and table
+      const checkboxes = document.querySelectorAll(".column-checkbox");
+      const table = document.querySelector("#my-table");
+
+      // Load the saved state from localStorage
+      const savedState = localStorage.getItem("columnState");
+      const columnState = savedState ? JSON.parse(savedState) : {};
+
+      // Function to update the display of the table based on the column state
+      function updateTable() {
+        // Loop through the checkboxes and hide/show the corresponding columns
+        for (let i = 0; i < checkboxes.length; i++) {
+          const checkbox = checkboxes[i];
+          const column = checkbox.value;
+          const visible = columnState[column] !== false;
+          checkbox.checked = visible;
+          table
+            .querySelectorAll(`[data-column="${column}"]`)
+            .forEach((cell) => {
+              cell.classList.toggle("hidden", !visible);
+            });
+        }
+        // Save the updated column state to localStorage
+        localStorage.setItem("columnState", JSON.stringify(columnState));
+      }
+
+      // Add event listeners to the checkboxes to toggle the column state and update the table
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener("change", () => {
+          const column = checkbox.value;
+          const visible = checkbox.checked;
+          columnState[column] = visible;
+          updateTable();
+        });
+      });
+
+      // Update the table on page load
+      updateTable();
+    </script>
+    <!-- <script>
+        const checkboxes = document.querySelectorAll('.column-checkbox');
+    
+        // Listen for changes to checkboxes
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                // Save checked state and corresponding column name to local storage
+                if (checkbox.checked) {
+                    localStorage.setItem(checkbox.value, 'true');
+                } else {
+                    localStorage.removeItem(checkbox.value);
+                }
+            });
+        });
+    
+        // Check stored state and set checkboxes accordingly
+        checkboxes.forEach(checkbox => {
+            if (localStorage.getItem(checkbox.value) === 'true') {
+                checkbox.checked = true;
+            }
+        });
+    </script> -->
+
+    <!-- column name save in an array -->
+    <!-- <script>
+        const checkboxes = document.querySelectorAll('.column-checkbox');
+    
+        // Listen for changes to checkboxes
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                // Get stored column names
+                let columnNames = JSON.parse(localStorage.getItem('selectedColumns')) || [];
+    
+                // Update array with selected column name
+                if (checkbox.checked) {
+                    columnNames.push(checkbox.value);
+                } else {
+                    columnNames = columnNames.filter(columnName => columnName !== checkbox.value);
+                }
+    
+                // Save updated array to local storage
+                localStorage.setItem('selectedColumns', JSON.stringify(columnNames));
+            });
+        });
+    
+        // Check stored state and set checkboxes accordingly
+        const storedColumnNames = JSON.parse(localStorage.getItem('selectedColumns')) || [];
+        checkboxes.forEach(checkbox => {
+            if (storedColumnNames.includes(checkbox.value)) {
+                checkbox.checked = true;
+            }
+        });
+    </script> -->
+
+    <!-- <script>
+      const checkboxes = document.querySelectorAll(".column-checkbox");
+
+      // Listen for changes to checkboxes
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener("change", () => {
+          // Save checked state and corresponding column name and data to local storage
+          if (checkbox.checked) {
+            localStorage.setItem(checkbox.value, "true");
+            const data = ["ABC", "DEF", "GHI"]; // Replace this with your actual data
+            localStorage.setItem(
+              `${checkbox.value}-data`,
+              JSON.stringify(data)
+            );
+          } else {
+            localStorage.removeItem(checkbox.value);
+            localStorage.removeItem(`${checkbox.value}-data`);
+          }
+        });
+      });
+
+      // Check stored state and set checkboxes accordingly
+      checkboxes.forEach((checkbox) => {
+        if (localStorage.getItem(checkbox.value) === "true") {
+          checkbox.checked = true;
+          const data = JSON.parse(
+            localStorage.getItem(`${checkbox.value}-data`)
+          ); // Retrieve data from local storage
+          // Replace this with code to display the data
+          console.log(`Data for ${checkbox.value}: ${data}`);
+        }
+      });
+    </script> -->
+
+    <!-- <script>
+      const checkboxes = document.querySelectorAll(".column-checkbox");
+      const table = document.querySelector("table");
+      const tableHeaders = table.querySelectorAll("th");
+      const tableRows = table.querySelectorAll("tbody tr");
+
+      // Check for saved columns in local storage
+      tableHeaders.forEach((header) => {
+        const columnName = header.getAttribute("data-column");
+        const savedState = localStorage.getItem(columnName);
+
+        if (savedState === "true") {
+          header.style.display = "table-cell";
+
+          tableRows.forEach((row) => {
+            const cell = row.querySelector(`td[data-column="${columnName}"]`);
+            cell.style.display = "table-cell";
+          });
+
+          checkboxes.forEach((checkbox) => {
+            if (checkbox.value === columnName) {
+              checkbox.checked = true;
+            }
+          });
+        }
+      });
+
+      // Listen for changes to checkboxes
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener("change", () => {
+          const columnName = checkbox.value;
+          const header = table.querySelector(`th[data-column="${columnName}"]`);
+
+          // Save checked state to local storage
+          if (checkbox.checked) {
+            localStorage.setItem(columnName, "true");
+          } else {
+            localStorage.removeItem(columnName);
+          }
+
+          // Update table based on checked state of checkboxes
+          if (checkbox.checked) {
+            header.style.display = "table-cell";
+
+            tableRows.forEach((row) => {
+              const cell = row.querySelector(`td[data-column="${columnName}"]`);
+              cell.style.display = "table-cell";
+            });
+          } else {
+            header.style.display = "none";
+
+            tableRows.forEach((row) => {
+              const cell = row.querySelector(`td[data-column="${columnName}"]`);
+              cell.style.display = "none";
+            });
+          }
+        });
+      });
+    </script> -->
+  </body>
+</html>
