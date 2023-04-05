@@ -1,0 +1,13 @@
+#columns-dropdown {
+    list-style: none;
+}
+
+table {
+    border: 1px solid grey;
+}
+
+th,
+td {
+    padding: 1em;
+
+}

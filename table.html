@@ -116,7 +116,7 @@
         </tr>
       </tbody>
     </table>
-    <script>
+    <!-- <script>
       // Get the checkboxes and table
       const checkboxes = document.querySelectorAll(".column-checkbox");
       const table = document.querySelector("#my-table");
@@ -155,7 +155,7 @@
 
       // Update the table on page load
       updateTable();
-    </script>
+    </script> -->
     <!-- <script>
         const checkboxes = document.querySelectorAll('.column-checkbox');
     
@@ -180,7 +180,7 @@
     </script> -->
 
     <!-- column name save in an array -->
-    <!-- <script>
+    <script>
         const checkboxes = document.querySelectorAll('.column-checkbox');
     
         // Listen for changes to checkboxes
@@ -191,9 +191,10 @@
     
                 // Update array with selected column name
                 if (checkbox.checked) {
-                    columnNames.push(checkbox.value);
+                  columnNames = columnNames.filter(columnName => columnName !== checkbox.value);
                 } else {
-                    columnNames = columnNames.filter(columnName => columnName !== checkbox.value);
+                   
+                    columnNames.push(checkbox.value);
                 }
     
                 // Save updated array to local storage
@@ -208,7 +209,7 @@
                 checkbox.checked = true;
             }
         });
-    </script> -->
+    </script>
 
     <!-- <script>
       const checkboxes = document.querySelectorAll(".column-checkbox");

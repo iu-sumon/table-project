@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="table.css" />
+  </head>
+  <body>
+    <div class="dropdown">
+      <span>Columns:</span>
+      <div class="dropdown-content">
+        <a
+          ><input
+            type="checkbox"
+            class="col-checkbox"
+            data-col="col-code"
+            value="Code"
+            checked
+          />Code</a
+        >
+        <a
+          ><input
+            type="checkbox"
+            class="col-checkbox"
+            data-col="col-initial-Limit"
+            value="Initial Limit"
+            checked
+          />Initial Limit</a
+        >
+        <a
+          ><input
+            type="checkbox"
+            class="col-checkbox"
+            data-col="col-investment"
+            value="Investment"
+            checked
+          />Investment</a
+        >
+        <a
+          ><input
+            type="checkbox"
+            class="col-checkbox"
+            data-col="col-mkt-value"
+            value="Mkt Value"
+            checked
+          />Mkt Value</a
+        >
+        <a
+          ><input
+            type="checkbox"
+            class="col-checkbox"
+            data-col="col-gain"
+            value="Gain"
+            checked
+          />Gain</a
+        >
+        <a
+          ><input
+            type="checkbox"
+            class="col-checkbox"
+            data-col="col-per-gain"
+            value="% Gain"
+            checked
+          />% Gain</a
+        >
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th class="col-code">Code</th>
+          <th class="col-initial-Limit">Initial Limit</th>
+          <th class="col-investment">Investment</th>
+          <th class="col-mkt-value">Mkt Value</th>
+          <th class="col-gain">Gain</th>
+          <th class="col-per-gain">% Gain</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-code">ABC</td>
+          <td class="col-initial-Limit">1000</td>
+          <td class="col-investment">500</td>
+          <td class="col-mkt-value">750</td>
+          <td class="col-gain">250</td>
+          <td class="col-per-gain">50%</td>
+        </tr>
+        <tr>
+          <td class="col-code">BCR</td>
+          <td class="col-initial-Limit">1000</td>
+          <td class="col-investment">500</td>
+          <td class="col-mkt-value">750</td>
+          <td class="col-gain">250</td>
+          <td class="col-per-gain">50%</td>
+        </tr>
+        <tr>
+          <td class="col-code">REC</td>
+          <td class="col-initial-Limit">1000</td>
+          <td class="col-investment">500</td>
+          <td class="col-mkt-value">750</td>
+          <td class="col-gain">250</td>
+          <td class="col-per-gain">50%</td>
+        </tr>
+      </tbody>
+    </table>
+    <script src="app.js"></script>
+  </body>
+</html>
